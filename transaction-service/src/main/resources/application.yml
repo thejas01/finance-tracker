@@ -1,0 +1,21 @@
+# server:
+#   port: 8808
+
+# spring:
+#   application:
+#     name: transaction-service
+#   datasource:
+#     url: jdbc:mysql://localhost:3306/thejasdb2
+#     username: root
+#     password: Dumpling@2501
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#   jpa:
+#     hibernate:
+#       ddl-auto: update
+#     show-sql: true
+#     database-platform: org.hibernate.dialect.MySQL8Dialect
+
+# eureka:
+#   client:
+#     service-url:
+#       defaultZone: http://localhost:8761/eureka/
