@@ -13,6 +13,10 @@ spring:
           uri: lb://TRANSACTION-SERVICE
           predicates:
             - Path=/transactions/**
+        - id: category-service
+          uri: lb://CATEGORY-SERVICE
+          predicates:
+           - Path=/categories/**
         
 eureka:
   client:
