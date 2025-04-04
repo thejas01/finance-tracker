@@ -17,7 +17,12 @@ spring:
           uri: lb://CATEGORY-SERVICE
           predicates:
            - Path=/categories/**
-        
+         
+        - id: budget-service
+          uri: lb://BUDGET-SERVICE
+          predicates:
+           - Path=/budgets/**
+    
 eureka:
   client:
     service-url:

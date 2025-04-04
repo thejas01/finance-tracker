@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import com.thejas.category_service.entity.Category;
+import com.thejas.category_service.repository.CategoryRepository;
 import com.thejas.category_service.service.CategoryService;
 
 import java.util.List;
@@ -13,6 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+
+    private final CategoryRepository categoryRepository;
+
+    @GetMapping("/exists")
+    public boolean categoryExists(@RequestParam String name, @RequestParam String type) {
+        return categoryRepository.existsByNameAndType(name, type);
+    }
 
     @PostMapping
     public Category createCategory(@RequestBody Category category) {
