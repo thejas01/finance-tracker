@@ -4,16 +4,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.thejas.budget_service.entity.Budget;
+import com.thejas.budget_service.entity.Transaction;
+import com.thejas.budget_service.feign.TransactionClient;
 import com.thejas.budget_service.repository.BudgetRepository;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Map;
+
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BudgetService {
     private final BudgetRepository budgetRepository;
+    private final TransactionClient transactionClient;
 
     public Budget setBudget(Budget budget) {
         return budgetRepository.save(budget);
@@ -50,4 +55,33 @@ public class BudgetService {
     public List<Budget> getAllBudgets() {
         return budgetRepository.findAll();
     }
+
+    public List<Budget> getUserBudgets(Long userId) {
+        return budgetRepository.findByUserId(userId);
+    }
+
+    public Map<String, Double> getBudgetStatus(Long userId) {
+        List<Budget> budgets = budgetRepository.findByUserId(userId);
+        List<Transaction> transactions = transactionClient.getTransactionsByUserId(userId);
+
+        Map<String, Double> totalSpent = transactions.stream()
+                .filter(t -> t.getType().equals("EXPENSE"))
+                .collect(Collectors.groupingBy(Transaction::getCategory, Collectors.summingDouble(Transaction::getAmount)));
+
+        return budgets.stream().collect(Collectors.toMap(
+            Budget::getCategory,
+            budget -> totalSpent.getOrDefault(budget.getCategory(), 0.0) - budget.getLimitAmount()
+        ));
+    }
+    // public Map<String, Double> getBudgetStatus(Long userId) {
+    //     return budgets.stream()
+    //         .filter(budget -> budget.getUserId().equals(userId))
+    //         .collect(Collectors.toMap(
+    //             Budget::getCategory, 
+    //             Budget::getAmount, 
+    //             (existingValue, newValue) -> existingValue // Keep the existing value in case of duplicates
+    //         ));
+    // }
+
+
 }
