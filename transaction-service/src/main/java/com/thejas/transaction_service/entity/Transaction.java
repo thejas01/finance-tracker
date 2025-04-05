@@ -33,4 +33,6 @@ public class Transaction {
 
     private LocalDateTime date;
 
+    private Long userId;
+
 }

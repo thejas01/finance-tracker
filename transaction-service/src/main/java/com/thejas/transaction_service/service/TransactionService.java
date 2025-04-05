@@ -72,4 +72,8 @@ public class TransactionService {
             return List.of(); // Or throw an exception, e.g., throw new InvalidTransactionTypeException(type);
         }
     }
+
+    public List<Transaction> getTransactionsByUserId(Long userId) {
+        return transactionRepository.findByUserId(userId);
+    }
 }

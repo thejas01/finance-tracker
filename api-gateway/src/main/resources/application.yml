@@ -22,6 +22,14 @@ spring:
           uri: lb://BUDGET-SERVICE
           predicates:
            - Path=/budgets/**
+        - id: report-service
+          uri: lb://REPORT-SERVICE
+          predicates:
+           - Path=/reports/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+           - Path=/users/**
     
 eureka:
   client:

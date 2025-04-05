@@ -29,4 +29,9 @@ public class TransactionController {
     public List<Transaction> getTransactionsByType(@PathVariable String type) {
         return transactionService.getTransactionsByType(type);
     }
+
+    @GetMapping("/user/{userId}")
+    public List<Transaction> getTransactionsByUserId(@PathVariable Long userId) {
+        return transactionService.getTransactionsByUserId(userId);
+    }
 }

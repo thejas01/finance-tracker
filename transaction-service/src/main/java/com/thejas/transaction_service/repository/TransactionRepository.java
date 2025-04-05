@@ -11,4 +11,5 @@ import com.thejas.transaction_service.entity.TransactionType;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
     List<Transaction> findByType(TransactionType type);
+    List<Transaction> findByUserId(Long userId);
 }

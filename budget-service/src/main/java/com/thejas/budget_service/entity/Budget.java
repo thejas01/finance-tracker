@@ -22,4 +22,6 @@ public class Budget {
     private Double limitAmount; // Budget limit for the category
 
     private String month; // e.g., "2025-03"
+
+    private Long userId;
 }
