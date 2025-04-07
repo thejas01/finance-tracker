@@ -7,6 +7,7 @@ import com.thejas.budget_service.entity.Budget;
 import com.thejas.budget_service.service.BudgetService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -28,4 +29,20 @@ public class BudgetController {
     public List<Budget> getAllBudgets() {
         return budgetService.getAllBudgets();
     }
+    @GetMapping("/user/{userId}")
+    public List<Budget> getUserBudgets(@PathVariable Long userId) {
+        return budgetService.getUserBudgets(userId);
+    }
+    @GetMapping("/status/{userId}")
+    public Map<String, Double> getBudgetStatus(@PathVariable Long userId) {
+        return budgetService.getBudgetStatus(userId);
+    }
+
+    @GetMapping("/alerts/{userId}")
+    public List<String> checkOverspending(@PathVariable Long userId) {
+        return budgetService.checkOverspending(userId);
+    }
+    
+
+
 }

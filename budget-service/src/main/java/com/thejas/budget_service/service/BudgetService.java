@@ -8,6 +8,7 @@ import com.thejas.budget_service.entity.Transaction;
 import com.thejas.budget_service.feign.TransactionClient;
 import com.thejas.budget_service.repository.BudgetRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -82,6 +83,16 @@ public class BudgetService {
     //             (existingValue, newValue) -> existingValue // Keep the existing value in case of duplicates
     //         ));
     // }
+public List<String> checkOverspending(Long userId) {
+        Map<String, Double> budgetStatus = getBudgetStatus(userId);
+        List<String> alerts = new ArrayList<>();
 
+        for (Map.Entry<String, Double> entry : budgetStatus.entrySet()) {
+            if (entry.getValue() > 0) {
+                alerts.add("⚠️ Warning: You have exceeded your " + entry.getKey() + " budget by ₹" + entry.getValue());
+            }
+        }
+        return alerts;
+    }
 
 }

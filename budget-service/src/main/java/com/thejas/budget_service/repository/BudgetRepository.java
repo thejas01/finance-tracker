@@ -13,5 +13,6 @@ import java.util.List;
 public interface BudgetRepository extends JpaRepository<Budget, Long> {
     //Optional<Budget> findByCategoryAndMonth(String category, String month);
     List<Budget> findByCategoryAndMonth(String category, String month);
+    List<Budget> findByUserId(Long userId);
 
 }
